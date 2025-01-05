@@ -48,7 +48,7 @@ resource "google_compute_router" "router" {
 # Nat Creation
 #===================
 resource "google_compute_router_nat" "nat" {
-  name   = "nat"
+  name   = "vfusion-nat"
   router = google_compute_router.router.name
   region = "europe-west1"
 
@@ -70,7 +70,7 @@ resource "google_compute_router_nat" "nat" {
 # Assign Nat an external ip address
 #====================================
 resource "google_compute_address" "nat" {
-  name         = "nat"
+  name         = "vfusion-nat"
   address_type = "EXTERNAL"
   network_tier = "PREMIUM"
 }
