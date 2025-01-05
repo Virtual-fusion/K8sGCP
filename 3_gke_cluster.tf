@@ -2,7 +2,7 @@
 #====================
 resource "google_container_cluster" "primary" {
   name                     = "dev-cluster"
-  location                 = "us-central1-a"
+  location                 = "europe west"
   remove_default_node_pool = true
   initial_node_count       = 1
   network                  = google_compute_network.main.self_link
@@ -14,7 +14,7 @@ resource "google_container_cluster" "primary" {
 
   # Optional, if you want multi-zonal cluster
   node_locations = [
-    "us-central1-b"
+    "europe west"
   ]
 
   addons_config {

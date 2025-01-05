@@ -18,7 +18,7 @@ resource "google_compute_network" "main" {
 resource "google_compute_subnetwork" "private" {
   name                     = "private"
   ip_cidr_range            = "10.0.0.0/18"
-  region                   = "us-central1"
+  region                   = "europe west"
   network                  = google_compute_network.main.id
   private_ip_google_access = true
 
@@ -40,7 +40,7 @@ resource "google_compute_subnetwork" "private" {
 
 resource "google_compute_router" "router" {
   name    = "router"
-  region  = "us-central1"
+  region  = "europe west"
   network = google_compute_network.main.id
 }
 
@@ -50,7 +50,7 @@ resource "google_compute_router" "router" {
 resource "google_compute_router_nat" "nat" {
   name   = "nat"
   router = google_compute_router.router.name
-  region = "us-central1"
+  region = "europe west"
 
   source_subnetwork_ip_ranges_to_nat = "LIST_OF_SUBNETWORKS"
   nat_ip_allocate_option             = "MANUAL_ONLY"

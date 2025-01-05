@@ -1,10 +1,10 @@
 terraform { 
   cloud { 
     
-    organization = "DigitalWitchng" 
+    organization = "virtualfusion-project-1" 
 
     workspaces { 
-      name = "kubernetes-google-gke" 
+      name = "K8s-deployment2" 
     } 
   } 
 }
