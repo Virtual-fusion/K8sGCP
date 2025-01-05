@@ -1,6 +1,6 @@
 # Create GKE Cluster
 #====================
-resource "google_container_cluster" "primary-cluster" {
+resource "google_container_cluster" "primary" {
   name                     = "dev-cluster"
   location                 = "europe-west1"
   remove_default_node_pool = true
