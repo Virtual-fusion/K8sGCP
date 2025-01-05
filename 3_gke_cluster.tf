@@ -10,10 +10,9 @@ resource "google_container_cluster" "primary" {
   networking_mode          = "VPC_NATIVE"
   deletion_protection      = false
 
-  # Multi-zonal cluster: Specify additional zones if desired
+  # Optional, if you want multi-zonal cluster
   node_locations = [
-    "europe-west1-b", 
-    "europe-west1-c"  # Add additional zones as required
+    "europe-west1-b"  # Exclude "europe-west1"
   ]
 
   addons_config {
@@ -29,7 +28,11 @@ resource "google_container_cluster" "primary" {
     channel = "REGULAR"
   }
 
-  # Optional: Uncomment if workload identity is required
+  # Optional: Uncomment if required
+  # logging_service          = "logging.googleapis.com/kubernetes"
+  # monitoring_service       = "monitoring.googleapis.com/kubernetes"
+
+  # Optional: Uncomment if needed
   # workload_identity_config {
   #   workload_pool = "Host-project.svc.id.goog"
   # }
@@ -42,6 +45,6 @@ resource "google_container_cluster" "primary" {
   private_cluster_config {
     enable_private_nodes    = true
     enable_private_endpoint = false
-    master_ipv4_cidr_block  = "172.16.0.0/28"  # Ensure no overlap with VPC ranges
+    master_ipv4_cidr_block  = "172.16.0.0/28"
   }
 }
