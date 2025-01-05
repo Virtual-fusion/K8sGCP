@@ -26,7 +26,7 @@ jobs:
 
     - name: Authenticate to GCP
       env:
-        GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GCP_CREDENTIALS_JSON }}
+        GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GCP_SERVICE_ACCOUNT_KEY }}
       run: |
         echo "$GOOGLE_APPLICATION_CREDENTIALS" > gcp-key.json
         gcloud auth activate-service-account --key-file=gcp-key.json
@@ -86,7 +86,7 @@ jobs:
 
 
     # - name: Deploy Nginx-Controller
-      run: |
-        helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
-        kubectl create namespace ingress-nginx
-        helm install ingress-nginx ingress-nginx/ingress-nginx -n ingress-nginx
+      # run: |
+      #   helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
+      #   kubectl create namespace ingress-nginx
+      #   helm install ingress-nginx ingress-nginx/ingress-nginx -n ingress-nginx
