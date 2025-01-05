@@ -1,4 +1,4 @@
-# Create a vpc
+# Create a VPC
 #===============
 resource "google_compute_network" "main" {
   name                            = "pcidss-vpc"
@@ -8,13 +8,8 @@ resource "google_compute_network" "main" {
   delete_default_routes_on_create = false
 }
 
-
-
-
-
-
 # Create Subnet
-# ==============
+#===============
 resource "google_compute_subnetwork" "private" {
   name                     = "private"
   ip_cidr_range            = "10.0.0.0/18"
@@ -32,21 +27,16 @@ resource "google_compute_subnetwork" "private" {
   }
 }
 
-
-
-
-# Create Router 
-#================
-
+# Create Router
+#===============
 resource "google_compute_router" "router" {
   name    = "router"
   region  = "europe-west1"
   network = google_compute_network.main.id
 }
 
-
-# Nat Creation
-#===================
+# NAT Creation
+#===============
 resource "google_compute_router_nat" "nat" {
   name   = "vfusion-nat"
   router = google_compute_router.router.name
@@ -63,21 +53,17 @@ resource "google_compute_router_nat" "nat" {
   nat_ips = [google_compute_address.nat.self_link]
 }
 
-
-
-
-
-# Assign Nat an external ip address
+# Assign NAT an External IP Address
 #====================================
 resource "google_compute_address" "nat" {
   name         = "vfusion-nat"
   address_type = "EXTERNAL"
   network_tier = "PREMIUM"
+  region       = "europe-west1"  # Added region to match NAT's region
 }
 
-
-# Create a firewall rule
-# =======================
+# Create a Firewall Rule
+#========================
 resource "google_compute_firewall" "allow-ssh" {
   name    = "allow-ssh"
   network = google_compute_network.main.name
@@ -87,6 +73,5 @@ resource "google_compute_firewall" "allow-ssh" {
     ports    = ["22"]
   }
 
-  source_ranges = ["0.0.0.0/0"]
+  source_ranges = ["0.0.0.0/0"]  # Consider restricting this for security
 }
-
