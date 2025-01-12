@@ -14,7 +14,7 @@ variable "gcp-project-id" {
   type        = string
 }
 
-variable "db-password-base64" {
+variable "db_password" {
   description = "The password for the MySQL database user"
   type        = string
   sensitive   = true
