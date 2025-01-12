@@ -1,4 +1,4 @@
-variable "project_id" {
+variable "project-id" {
   description = "The GCP project ID"
   type        = string
 }
@@ -9,12 +9,12 @@ variable "region" {
   default     = "europe-west1" # Set a default if needed
 }
 
-variable "gcp_project_id" {
+variable "gcp-project-id" {
   description = "The Google Cloud project ID for the provider configuration"
   type        = string
 }
 
-variable "db_password" {
+variable "db-password" {
   description = "The password for the MySQL database user"
   type        = string
   sensitive   = true
