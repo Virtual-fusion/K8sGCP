@@ -13,3 +13,9 @@ variable "gcp-project-id" {
   description = "The Google Cloud project ID for the provider configuration"
   type        = string
 }
+
+variable "db-password-base64" {
+  description = "The password for the MySQL database user"
+  type        = string
+  sensitive   = true
+}
