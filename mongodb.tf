@@ -23,5 +23,5 @@ resource "google_sql_database" "database" {
 resource "google_sql_user" "db_user" {
   name     = "fusion-connect"
   instance = google_sql_database_instance.mysql_instance.name
-  password = var.db_password
+  password = var.db-password-base64
 }
