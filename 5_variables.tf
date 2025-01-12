@@ -6,11 +6,16 @@ variable "project_id" {
 variable "region" {
   description = "The GCP region to deploy resources"
   type        = string
-  default     = "europe-west1" # Default value
+  default     = "europe-west1" # Set a default if needed
 }
 
-variable "db_password_base64" {
-  description = "The Base64-encoded password for the MySQL database user"
+variable "gcp_project_id" {
+  description = "The Google Cloud project ID for the provider configuration"
   type        = string
-  sensitive   = true # Ensures it doesn't show in logs
+}
+
+variable "db_password" {
+  description = "The password for the MySQL database user"
+  type        = string
+  sensitive   = true
 }
