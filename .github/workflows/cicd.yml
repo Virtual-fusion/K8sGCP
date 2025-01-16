@@ -48,7 +48,7 @@ jobs:
     #   run: terraform apply -auto-approve -input=false -var="project_id=${{ secrets.GCP_PROJECT_ID }}" -var="region=europe-west1"
 
     - name: Terraform Destroy
-      run: terraform destroy -auto-approve -input=false -var="project_id=${{ secrets.GCP_PROJECT_ID }}" -var="europe-west1"
+      run: terraform destroy -auto-approve -input=false -var="project_id=${{ secrets.GCP_PROJECT_ID }}" -var="region=europe-west1"
   
     # - name: Install gke-gcloud-auth-plugin
     #   run: |
