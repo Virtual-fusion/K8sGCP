@@ -18,6 +18,9 @@ jobs:
     environment: production
 
     steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+
     - uses: actions/slack@v2
       with:
         status: started GKE provisioning
