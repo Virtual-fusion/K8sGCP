@@ -22,7 +22,7 @@ jobs:
         shell: bash
 
     steps:
-    - uses: actions/slack@v2
+    - uses: rtCamp/action-slack-notify@v2
       with:
         status: started GKE provisioning
         channel: '#devops-project'
@@ -98,7 +98,7 @@ jobs:
     #     kubectl create namespace ingress-nginx
     #     helm install ingress-nginx ingress-nginx/ingress-nginx -n ingress-nginx
 
-    - uses: actions/slack@v2
+    - uses: rtCamp/action-slack-notify@v2
       with:
         status: ${{ job.status }}
         steps: ${{ tojson(steps) }}
