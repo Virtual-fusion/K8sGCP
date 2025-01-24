@@ -13,13 +13,22 @@ jobs:
     name: 'Terraform'
     runs-on: ubuntu-latest
     environment: production
-
+      
+    env: 
+      SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
     
     defaults:
       run:
         shell: bash
 
     steps:
+    - uses: actions/slack@v2
+      with:
+        status: started GKE provisioning
+        channel: '#devops-project'
+        message: started terraform provisioning to GCP...
+      if: always()
+         
     - name: Checkout
       uses: actions/checkout@v4
 
@@ -47,8 +56,8 @@ jobs:
     # - name: Terraform Apply
     #   run: terraform apply -auto-approve -input=false -var="project_id=${{ secrets.GCP_PROJECT_ID }}" -var="region=europe-west1"
 
-    - name: Terraform Destroy
-      run: terraform destroy -auto-approve -input=false -var="project_id=${{ secrets.GCP_PROJECT_ID }}" -var="region=europe-west1"
+    # - name: Terraform Destroy
+    #   run: terraform destroy -auto-approve -input=false -var="project_id=${{ secrets.GCP_PROJECT_ID }}" -var="region=europe-west1"
   
     # - name: Install gke-gcloud-auth-plugin
     #   run: |
@@ -88,3 +97,10 @@ jobs:
     #     helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
     #     kubectl create namespace ingress-nginx
     #     helm install ingress-nginx ingress-nginx/ingress-nginx -n ingress-nginx
+
+    - uses: actions/slack@v2
+      with:
+        status: ${{ job.status }}
+        steps: ${{ tojson(steps) }}
+        channel: #devops-project
+      if: always()
