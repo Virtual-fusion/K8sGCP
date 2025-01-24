@@ -24,6 +24,7 @@ jobs:
     steps:
     - uses: rtCamp/action-slack-notify@v2
       with:
+        webhook_url: ${{ secrets.SLACK_WEBHOOK_URL }}
         status: started GKE provisioning
         channel: '#devops-project'
         message: started terraform provisioning to GCP...
