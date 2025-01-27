@@ -89,7 +89,7 @@ jobs:
     #     kubectl create namespace ingress-nginx
     #     helm install ingress-nginx ingress-nginx/ingress-nginx -n ingress-nginx
 
-    - uses: rtCamp/action-slack-notify@v2
+    - uses: slackapi/slack-github-action@v1.25.0
       with:
         slack_webhook: ${{ secrets.SLACK_WEBHOOK }}
         message: |
@@ -114,14 +114,14 @@ jobs:
 #     environment: production
       
 #     env: 
-#       SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK }}
+#       SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
     
 #     defaults:
 #       run:
 #         shell: bash
 
 #     steps:
-#     - uses: rtCamp/action-slack-notify@v2
+#     - uses: slackapi/slack-github-action@v1.25.0
 #       with:
 #         webhook_url: ${{ secrets.SLACK_WEBHOOK_URL }}
 #         status: started GKE provisioning
