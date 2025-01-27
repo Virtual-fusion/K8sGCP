@@ -22,7 +22,7 @@ jobs:
     steps:
     - uses: slackapi/slack-github-action@v1.25.0
       with:
-        webhook_url: ${{ secrets.SLACK_WEBHOOK }}
+        slack_webhook: ${{ secrets.SLACK_WEBHOOK }}
         message: "🚀 Started Terraform provisioning to GCP..."
       if: always()
          
@@ -91,7 +91,7 @@ jobs:
 
     - uses: rtCamp/action-slack-notify@v2
       with:
-        webhook_url: ${{ secrets.SLACK_WEBHOOK }}
+        slack_webhook: ${{ secrets.SLACK_WEBHOOK }}
         message: |
           ✅ Terraform provisioning completed.
           Job Status: ${{ job.status }}
