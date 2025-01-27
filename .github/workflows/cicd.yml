@@ -13,7 +13,7 @@ jobs:
     environment: production
 
     env: 
-      SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK }}
+      SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
     
     defaults:
       run:
