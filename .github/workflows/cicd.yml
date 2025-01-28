@@ -12,7 +12,7 @@ jobs:
     environment: production
 
     env: 
-      SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+      SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
 
     defaults:
       run:
@@ -25,7 +25,7 @@ jobs:
       with:
         payload: '{"text": "🚀 Terraform provisioning to GCP has started..."}'
       env:
-        SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
       if: always()
 
     # Checkout the repository
@@ -119,5 +119,5 @@ jobs:
             ]
           }
       env:
-        SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
       if: always()
