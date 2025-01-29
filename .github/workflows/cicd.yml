@@ -56,50 +56,50 @@ jobs:
       run: terraform plan -input=false -var="project_id=${{ secrets.GCP_PROJECT_ID }}" -var="region=europe-west1"
 
     # Apply Terraform Apply
-    - name: Terraform Apply
-      run: terraform apply -auto-approve -input=false -var="project_id=${{ secrets.GCP_PROJECT_ID }}" -var="region=europe-west1"
-
-    # Apply Terraform Destroy
-    # - name: Terraform Destroy
+    # - name: Terraform Apply
     #   run: terraform apply -auto-approve -input=false -var="project_id=${{ secrets.GCP_PROJECT_ID }}" -var="region=europe-west1"
 
+    # Apply Terraform Destroy
+    - name: Terraform Destroy
+      run: terraform apply -auto-approve -input=false -var="project_id=${{ secrets.GCP_PROJECT_ID }}" -var="region=europe-west1"
+
     # Install gke-gcloud-auth-plugin
-    - name: Install gke-gcloud-auth-plugin
-      run: |
-        sudo apt-get update 
-        sudo apt-get install apt-transport-https ca-certificates gnupg curl -y
-        curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo gpg --dearmor -o /usr/share/keyrings/cloud.google.gpg
-        echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main" | sudo tee /etc/apt/sources.list.d/google-cloud-sdk.list
-        sudo apt-get update && sudo apt-get install google-cloud-cli -y
-        sudo apt-get install google-cloud-cli-gke-gcloud-auth-plugin -y
+    # - name: Install gke-gcloud-auth-plugin
+    #   run: |
+    #     sudo apt-get update 
+    #     sudo apt-get install apt-transport-https ca-certificates gnupg curl -y
+    #     curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo gpg --dearmor -o /usr/share/keyrings/cloud.google.gpg
+    #     echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main" | sudo tee /etc/apt/sources.list.d/google-cloud-sdk.list
+    #     sudo apt-get update && sudo apt-get install google-cloud-cli -y
+    #     sudo apt-get install google-cloud-cli-gke-gcloud-auth-plugin -y
 
-    # Configure kubectl for GKE
-    - name: Configure kubectl for GKE
-      run: |
-        gcloud container clusters get-credentials dev-cluster --zone europe-west1 --project ${{ secrets.GCP_PROJECT_ID }}
+    # # Configure kubectl for GKE
+    # - name: Configure kubectl for GKE
+    #   run: |
+    #     gcloud container clusters get-credentials dev-cluster --zone europe-west1 --project ${{ secrets.GCP_PROJECT_ID }}
 
-    # Deploy CertManager
-    - name: Deploy CertManager
-      run: |
-        kubectl create namespace cert-manager
-        kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.16.2/cert-manager.yaml
-        kubectl get pod -n cert-manager
+    # # Deploy CertManager
+    # - name: Deploy CertManager
+    #   run: |
+    #     kubectl create namespace cert-manager
+    #     kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.16.2/cert-manager.yaml
+    #     kubectl get pod -n cert-manager
 
-    # Install Helm
-    - name: Install Helm
-      run: |
-        curl https://baltocdn.com/helm/signing.asc | gpg --dearmor | sudo tee /usr/share/keyrings/helm.gpg > /dev/null
-        sudo apt-get install apt-transport-https --yes
-        echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/helm.gpg] https://baltocdn.com/helm/stable/debian/ all main" | sudo tee /etc/apt/sources.list.d/helm-stable-debian.list
-        sudo apt-get update
-        sudo apt-get install helm -y
+    # # Install Helm
+    # - name: Install Helm
+    #   run: |
+    #     curl https://baltocdn.com/helm/signing.asc | gpg --dearmor | sudo tee /usr/share/keyrings/helm.gpg > /dev/null
+    #     sudo apt-get install apt-transport-https --yes
+    #     echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/helm.gpg] https://baltocdn.com/helm/stable/debian/ all main" | sudo tee /etc/apt/sources.list.d/helm-stable-debian.list
+    #     sudo apt-get update
+    #     sudo apt-get install helm -y
 
-    # Deploy Nginx-Controller
-    - name: Deploy Nginx-Controller
-      run: |
-        helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
-        kubectl create namespace ingress-nginx
-        helm install ingress-nginx ingress-nginx/ingress-nginx -n ingress-nginx
+    # # Deploy Nginx-Controller
+    # - name: Deploy Nginx-Controller
+    #   run: |
+    #     helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
+    #     kubectl create namespace ingress-nginx
+    #     helm install ingress-nginx ingress-nginx/ingress-nginx -n ingress-nginx
 
     # Notify Slack at the end of the deployment
     - name: Notify Slack (End)
